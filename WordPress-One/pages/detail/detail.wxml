@@ -1,0 +1,110 @@
+<!--
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: 守望轩 + 小鱼(vPush) + 艾码汇
+ * github:  https://github.com/dchijack/WordPress-One-MinAPP
+ * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
+ * 
+ */
+-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class='topBar' style='padding-top:{{statusBarHeight}}px;background-color:rgba(3, 169, 244, {{opacity}});'>
+  <!--左边按钮  -->
+  <view class='loginButton' hover-class='hover-class' bindtap='goHomeHandler' wx:if="{{isShare}}">
+    <image src='/assets/home-t.png'></image>
+  </view>
+  <view class='loginButton' hover-class='hover-class' bindtap='goBackHandler' wx:else>
+    <image src='/assets/back.png'></image>
+  </view>
+  <!--中间标题  -->
+  <view class='SiteApp'>
+    <text>{{title}}</text>
+  </view>
+  <!--右边间隙  -->
+</view>
+<scroll-view scroll-y bindscroll="scrollHandler" scroll-with-animation scroll-top="{{scrollTop}}" class="container">
+  <!--顶部图片  -->
+  <image src='{{detail.thumbnail?detail.thumbnail:"/assets/default.png"}}' class='header-image'></image>
+  <view class="main">
+    <!--主体  -->
+    <view class='body'>
+      <!-- 分类/名称 -->
+      <view class='category'>
+        <text>{{detail.category?"分类 / " + detail.category:""}}</text>
+      </view>
+      <!-- 时间 -->
+      <view class='date'>
+        <text class='day'>{{detailDate[2]}}</text>
+        <text class='other'>{{detailDate[0]}}/{{detailDate[1]}}</text>
+      </view>
+      <!--主体内容  -->
+      <view class='content'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      </view>
+      <!--文字作者信息  -->
+      <view class='author'>
+        <text>———— {{detail.author}}</text>
+      </view>
+      <!--按钮  -->
+      <view class='action'>
+        <view class='action-cell'>
+          <view class='action-cell-button' bindtap="isThumbsClick">
+            <view class='cell-icon'>
+              <image src='/assets/{{isZanIcon}}'></image>
+            </view>
+            <view class='cell-title'>
+              <text>喜欢</text>
+            </view>
+          </view>
+        </view>
+        <!--转发  -->
+        <view class='action-cell'>
+          <view class='action-cell-button'>
+            <view class='cell-icon'>
+              <image src='/assets/share.png'></image>
+            </view>
+            <view class='cell-title'>
+              <text>转发</text>
+            </view>
+            <button class="share-button" open-type="share"></button>
+          </view>
+        </view>
+        <!--分享  -->
+        <view class='action-cell'>
+          <view class='action-cell-button' bindtap="isPrefix">
+            <view class='cell-icon'>
+              <image src='/assets/prefix.png'></image>
+            </view>
+            <view class='cell-title'>
+              <text>海报</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <navigator url='/pages/copyright/copyright' class='footer' hover-class='hover-class'>
+    <text>开源声明</text>
+  </navigator>
+  </view>
+</scroll-view>
+<!--分享图片canvas  -->
+<view class="canvas">
+  <canvas canvas-id="prefix" style="width: 600px;height: 970px;"></canvas>
+</view>
+<block wx:if="{{userInfo == null || userInfo == ''}}">
+<view class="modal-login" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{loginModal}}"></view>
+<view class="modal-dialog" wx:if="{{loginModal}}">
+  <view class="modal-title">授权提示</view>
+  <view class="modal-content">
+    <text>如需查看个人浏览记录、评论、点赞等功能需授权获取用户信息。</text>    
+  </view>
+  <view class="modal-footer">
+    <view class="modal-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="modal-confirm">
+      <text>点击授权</text>
+      <button class="modal-button" open-type="getUserInfo" bindgetuserinfo="bindGetUserinfo"></button>
+    </view>
+</view>
+</view>
+</block>

@@ -1,0 +1,89 @@
+<!--
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: 守望轩 + 小鱼(vPush) + 艾码汇
+ * github:  https://github.com/dchijack/WordPress-One-MinAPP
+ * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
+ * 
+ */
+-->
+
+<!--导航栏  -->
+<view class='topBar' style='padding-top:{{statusBarHeight}}px;background-color:rgba(3, 169, 244, {{opacity}});'>
+  <!--左边按钮  -->
+  <view class='loginButton' hover-class='hover-class'>
+    <image wx:if="{{userInfo == null || userInfo == ''}}" src='/assets/gavatar.png'></image>
+    <image wx:else src='{{userInfo.avatarUrl}}'></image>
+    <button class="login-button" open-type="getUserInfo" bindgetuserinfo="bindGetUserinfo"></button>
+  </view>
+  <!--中间标题  -->
+  <view class='SiteApp'>
+    <text>{{title}}</text>
+  </view>
+  <!--右边间隙  -->
+</view>
+
+<!--加载中  -->
+<view class='loading-container' wx:if="{{loading}}">
+  <text class='loading-title'>ONE</text>
+</view>
+
+<scroll-view
+  scroll-y
+  bindscroll="scrollHandler"
+  scroll-with-animation
+  class="container"
+  scroll-top="{{scrollTop}}"
+  wx:else>
+  <!--顶部图片  -->
+  <image wx:if="{{firstImage}}" src="{{firstImage}}" class="header-image"></image>
+  <image wx:else src="../../assets/default.png" class="header-image"></image>
+  <!--顶部文字  -->
+  <view class='header-text'>
+    <text>复杂的世界里，一个就够了</text>
+  </view>
+  <!--第一张卡片内容  -->
+  <block wx:for="{{postsList}}" wx:key="{{index}}">
+  <view wx:if="{{index==0}}" class='first_card' hover-class='hover-class'>
+      <button bindtap="redictDetail" id="{{item.id}}">
+          <!--vol标题  -->
+          <view class='first_title_box'>
+            <text>{{item.title.rendered}}</text>
+          </view>
+          <!--内容  -->
+          <view class='first_content_box'>
+            <text>{{item.content.rendered}}</text>
+          </view>
+          <!--作者  -->
+          <view class='first_author_box'>
+            <text>—— {{item.author}}</text>
+          </view>
+      </button>
+  </view>
+  <!--其他内容  -->
+  <view wx:else class='other_card' hover-class='hover-class'>
+      <button bindtap="redictDetail" id="{{item.id}}">
+        <!--标题  -->
+        <view class='other_title_box'>
+          <text>{{item.title.rendered}}</text>
+        </view>
+        <!--内容  -->
+        <view class='other_content_box'>
+          <text>{{item.content.rendered}}</text>
+        </view>
+        <!--作者  -->
+        <view class='other_author_box' wx:if="{{false}}">
+          <text> {{item.author}}</text>
+        </view>
+      </button>
+  </view>
+  </block>
+  <view hidden="{{isLastPage}}" class='more'>
+    <button class="more-button" formType="submit" size="mini" bindtap="loadMore">加载更多...</button>
+  </view>
+  <!--底部内容  -->
+  <navigator url='/pages/copyright/copyright' class='footer' hover-class='hover-class'>
+    <text>开源声明</text>
+  </navigator>
+</scroll-view>

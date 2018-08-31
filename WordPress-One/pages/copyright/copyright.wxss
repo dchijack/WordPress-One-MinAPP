@@ -1,0 +1,127 @@
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: 守望轩 + 小鱼(vPush) + 艾码汇
+ * github:  https://github.com/dchijack/WordPress-One-MinAPP
+ * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
+ * 
+ */
+@import "../../wxParse/wxParse.wxss";
+.wrapper{
+  padding: 5rpx;
+}
+.header {
+  padding:50rpx 0;
+  text-align:center;
+  font-weight:normal;
+  font-size:30rpx;
+  line-height:40rpx;
+  color:#757575;
+  border-bottom:2rpx solid #ededed;
+  margin-bottom:8rpx;
+}
+.header image {
+  width:240rpx;
+  height:240rpx;
+  border-radius: 50%;
+}
+.excerpt{
+  color:#626262; 
+  font-size:32rpx;
+  line-height:64rpx;
+  text-align: left;
+}
+.wxParse-title {
+  font-weight:500;
+  line-height: 1.6;
+  text-align:center;
+  margin-bottom: 24rpx; 
+}
+.clearfix{
+  margin:5px 15px;
+  display:inline-block;
+}
+.wxParse-h2 {
+  color:#111;
+  font-size:36rpx;
+}
+.wxParse-h3 {
+  color:#333;
+  font-size:36rpx;
+}
+.wxParse-a {
+    color: #21759b
+}
+.wxParse-p {
+  color:#555555;
+  font-size:32rpx;
+  line-height: 1.6;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em
+}
+.wxParse-center {
+  width:540rpx;
+  margin-left:auto;
+  margin-right:auto;
+}
+.wxParse-xm {
+  width:440rpx;
+  margin-left:auto;
+  margin-right:auto;
+}
+.wxParse-icon {
+  float:left;
+  width:48rpx;
+  height:48rpx;
+  margin-left:20rpx;
+}
+.wxParse-text {
+  float:left;
+  font-size:36rpx;
+  margin-left:20rpx;
+}
+.wxParse-descript {
+  text-align:center;
+}
+.wxParse-ul {
+  padding:10rpx 20rpx;
+  background:#efefef;
+  margin:20rpx auto;
+}
+.wxParse-li {
+  font-size:30rpx;
+  padding:0 10rpx;
+}
+.wxParse-li-circle {
+  margin-right:20rpx;
+}
+.content-article {
+  margin-bottom:40rpx;
+}
+.entry-back {
+  text-align: center;
+  margin:0 auto 10rpx;
+}
+.home-button {
+  color: #eee;
+  min-width: 200rpx;
+  margin-top: 30rpx;
+  font-weight: normal;
+  text-align: center;
+  border-radius: 300rpx;
+  font-size: 0.785714286rem;
+  background-color: #1296db;
+  background-repeat: repeat-x;
+}
+.home-button::after {
+  border:none;
+}
+.ditail-copyright {
+  color: #999;
+  font-size: 26rpx;
+  line-height: 1.2;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 20rpx;
+  margin-bottom: 140rpx;
+}

@@ -1,0 +1,72 @@
+<!--
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: 守望轩 + 小鱼(vPush) + 艾码汇
+ * github:  https://github.com/dchijack/WordPress-One-MinAPP
+ * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
+ * 
+ */
+-->
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="container">
+  <view class="header">
+    <image mode="aspectFill" src="/assets/logo.png"></image>
+    <view class="appdes">
+      复杂的世界里，一个就够了
+    </view>
+  </view>
+  <view class="content-article">
+    <view class="entry-summary">
+      <view class="wxParse-h2">
+        <view class="wxParse-title">感谢以下个人及项目组的杰出贡献</view>
+      </view>
+      <view class="wxParse-h3">
+        <view class="wxParse-strong wxParse-inline">
+          <view class="wxParse-title">开发平台</view>
+        </view>
+      </view>
+      <view class="wxParse-p">
+        <view class="wxParse-center">
+          <image class="wxParse-icon" src="/assets/min-icon.png"></image>
+          <text class="wxParse-text">微信小程序</text>
+          <image class="wxParse-icon" src="/assets/wp-icon.png"></image>
+          <text class="wxParse-text">WordPress</text>
+        </view>
+      </view>
+      <view class="wxParse-h3">
+        <view class="wxParse-strong wxParse-inline">
+          <view class="wxParse-title">开源项目</view>
+        </view>
+      </view>
+      <view class="wxParse-p">
+        <view class="wxParse-xm">
+          <image class="wxParse-icon" src="/assets/jianbo.png"></image>
+          <text class="wxParse-text">守望轩</text>
+          <image class="wxParse-icon" src="/assets/wxParse.png"></image>
+          <text class="wxParse-text">wxParse</text>
+        </view>
+      </view>
+      <view class="wxParse-h3">
+        <view class="wxParse-strong wxParse-inline">
+          <view class="wxParse-title">设计 & 开发</view>
+        </view>
+      </view>
+      <view class="wxParse-p">
+        <view class="wxParse-title">
+          <text>vPush 一ONE(vpush.cloud)</text>
+        </view>
+      </view>
+      <view class="wxParse-p">
+        <view class="wxParse-title">
+          <text>微时代小程序(weitimes.com)</text>
+        </view>
+      </view>
+    </view>
+    <view class="entry-back">
+      <view class="gohome">
+        <button class="home-button" size="mini" bindtap="goHome">返回首页</button>
+      </view>
+    </view>
+  </view>
+</view>

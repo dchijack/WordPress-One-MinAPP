@@ -1,0 +1,195 @@
+/*
+ * 
+ * WordPres 连接微信小程序
+ * Author: 守望轩 + 小鱼(vPush) + 艾码汇
+ * github:  https://github.com/dchijack/WordPress-One-MinAPP
+ * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
+ * 
+ */
+
+page, .loading-container, .container {
+  height: 100%;
+}
+.topBar {
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  height: 44px;
+  width: 100%;
+  position: fixed;
+  flex-direction: row;
+  background-color: rgba(3, 169, 244, 0);
+}
+.loginButton {
+  width: 50px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.loginButton > image {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.login-button {
+  opacity: 0; 
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  top:0;
+  left: 0;
+}
+.SiteApp {
+  height: 44px;
+  margin-right: 50px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SiteApp > text {
+  font-size: 16px;
+  color: #FFF;
+  font-weight: 500;
+}
+.header-image {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #DDDDDD 100%);
+}
+.header-text {
+  top: 0;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+.header-text > text {
+  font-size: 18px;
+  color: #FFFFFF;
+  font-weight: 600;
+  text-shadow: 2px 2px 1px #333;
+}
+.container {
+  background: linear-gradient(135deg, #FFFFFF 0%, #EEEEEE 100%);
+}
+button {
+  padding: 0;
+  font-size: auto;
+  line-height: 26px;
+  text-align: left;
+  overflow: none;
+  border-radius: 0;
+  box-sizing: none;
+  background: transparent;
+}
+button::after {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+.button-hover{
+  background: transparent;
+}
+
+.hover-class {
+  opacity: 0.8;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #FFFFFF 0%, #EEEEEE 100%);
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+.footer > text {
+  font-size: 12px;
+  color: #999;
+  font-weight: 200;
+}
+.modal-login {
+  top: 0;
+  left: 0;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: 9000;
+  position: fixed;
+  background: #000;
+  overflow: hidden;
+}
+.modal-dialog {
+  left: 0;
+  top: 50%;
+  z-index: 9999;
+  /*width: 540rpx;*/
+  position: fixed;
+  overflow: hidden;
+  background: #f9f9f9;
+  border-radius: 12rpx;
+  margin: -180rpx 105rpx;
+}
+.modal-title {
+  color: #030303;  
+  font-size: 36rpx;
+  text-align: center;
+  padding-top: 40rpx;
+}
+.modal-content {
+  padding: 50rpx 32rpx;
+}
+.modal-content text {
+  font-size:30rpx;
+}
+.modal-content image {
+  width:100%;
+}
+.modal-footer {
+  display: flex;
+  height: 86rpx;
+  font-size: 34rpx;
+  line-height: 86rpx;
+  flex-direction: row;
+  border-top: 1px solid #dedede;
+}
+.modal-cancel {
+  width: 50%;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+.modal-confirm {
+  width: 50%;
+  color: #ec5300;
+  text-align: center;
+  position: relative;
+}
+.modal-button {
+  opacity: 0; 
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  top:0;
+  left: 0;
+}
