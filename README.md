@@ -1,6 +1,14 @@
 # WordPress One 微信小程序
 
-> 基于 一One 微信小程序 (https://github.com/safe-dog/one) 前端模仿。采用 WordPress 后端发布图文。需要安装 WordPress 连接微信小程序插件，该插件下载地址：https://github.com/dchijack/WP-REST-API-PRO 。
+> 基于 一One 微信小程序 (https://github.com/safe-dog/one) 前端模仿。采用 WordPress 后端发布图文。需要安装 WordPress 连接微信小程序插件。
+
+# WordPress 连接小程序插件
+
+以下两个插件都可以使用，如果 WordPress 站点安装了 WPJAM BASIC 插件，推荐使用插件下载地址A；如果不需要安装 WPJAM BASIC 插件，则必须使用插件下载地址B
+
+> 插件下载地址A：https://github.com/dchijack/WPJAM-WP-REST-API 
+
+> 插件下载地址B：https://github.com/dchijack/WP-REST-API-PRO 
 
 #### 此小程序为第三方开源小程序，并非官方出品，代码仅开源提供学习交流。
 
