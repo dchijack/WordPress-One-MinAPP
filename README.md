@@ -6,9 +6,9 @@
 
 以下两个插件都可以使用，如果 WordPress 站点安装了 WPJAM BASIC 插件，推荐使用插件下载地址A；如果不需要安装 WPJAM BASIC 插件，则必须使用插件下载地址B
 
-> 插件下载地址A：https://github.com/dchijack/WPJAM-WP-REST-API 
+> 插件下载地址A：https://github.com/dchijack/WP-REST-API-PRO  
 
-> 插件下载地址B：https://github.com/dchijack/WP-REST-API-PRO 
+> 插件下载地址B：https://github.com/dchijack/WP-REST-API
 
 #### 此小程序为第三方开源小程序，并非官方出品，代码仅开源提供学习交流。
 
@@ -20,7 +20,7 @@
 
 ## 小程序体验
 
-![V微语录](https://github.com/dchijack/WP-REST-API-PRO/raw/master/vyulu.jpg)
+![V微语录](https://github.com/dchijack/WP-REST-API/raw/master/vyulu.jpg)
 
 > 注意，此小程序的功能与体验版功能不完全一致。
 
