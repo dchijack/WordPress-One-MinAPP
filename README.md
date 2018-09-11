@@ -16,7 +16,9 @@
 
 ## 配置说明
 
-> 修改 utils 目录中的 config.js 相关配置即可
+> 修改 utils 目录中的 config.js 相关配置：DOMAIN、WEBSITENAME、QRCODEURL、DOWNLOADFILEDOMAIN 等相关参数
+
+> 分享海报需要注意问题：1) 每篇文章应该要上传一张图; 2) 上传的图片不能有中文字名称; 3) 必须有添加信任 Downloads 域名; 4) 图片链接必须是 HTTPS ;
 
 ## 小程序体验
 
