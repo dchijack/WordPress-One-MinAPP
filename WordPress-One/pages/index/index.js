@@ -159,8 +159,13 @@ Page({
       //console.log(response);
       if (response.statusCode === 200) {
         //console.log(response.data.length);
+        if (response.data[0].thumbnail) {
+          var firstthumbnail = response.data[0].thumbnail
+        } else {
+          var firstthumbnail = response.data[0].meta.thumbnail
+        }
         self.setData({
-          firstImage: response.data[0].thumbnail,
+          firstImage: firstthumbnail,
           postsList: self.data.postsList.concat(response.data.map(function (item) {
             var strdate = item.date
             item.date = util.cutstr(strdate, 10, 1);

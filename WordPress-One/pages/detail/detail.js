@@ -347,7 +347,7 @@ Page({
                   console.log("二维码图片本地位置：" + res.tempFilePath);
                   if (localImgFlag) {
                     const downloadTaskForPostImage = wx.downloadFile({
-                      url: prefixUrl,
+                      url: prefixPath,
                       success: res => {
                         if (res.statusCode === 200) {
                           prefixPath = res.tempFilePath;

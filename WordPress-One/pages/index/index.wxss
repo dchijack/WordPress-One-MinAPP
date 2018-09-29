@@ -100,7 +100,18 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
-
+.other_author_box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 25rpx 45rpx;
+}
+.other_author_box > text {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 100;
+  text-shadow: 2rpx 2rpx 1rpx #ddd;
+}
 .more{
   margin: 0 280rpx;
 }

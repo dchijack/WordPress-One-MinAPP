@@ -25,7 +25,8 @@
 </view>
 <scroll-view scroll-y bindscroll="scrollHandler" scroll-with-animation scroll-top="{{scrollTop}}" class="container">
   <!--顶部图片  -->
-  <image src='{{detail.thumbnail?detail.thumbnail:"/assets/default.png"}}' class='header-image'></image>
+  <image wx:if='{{detail.thumbnail}}' src='{{detail.thumbnail?detail.thumbnail:"/assets/default.png"}}' class='header-image'></image>
+  <image wx:else src='{{detail.meta.thumbnail?detail.meta.thumbnail:"/assets/default.png"}}' class='header-image'></image>
   <view class="main">
     <!--主体  -->
     <view class='body'>

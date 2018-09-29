@@ -26,7 +26,7 @@
 
 <!--加载中  -->
 <view class='loading-container' wx:if="{{loading}}">
-  <text class='loading-title'>ONE</text>
+  <text class='loading-title'>微语录</text>
 </view>
 
 <scroll-view
@@ -73,8 +73,8 @@
           <text>{{item.content.rendered}}</text>
         </view>
         <!--作者  -->
-        <view class='other_author_box' wx:if="{{false}}">
-          <text> {{item.author}}</text>
+        <view class='other_author_box'>
+          <text>—— {{item.author}}</text>
         </view>
       </button>
   </view>

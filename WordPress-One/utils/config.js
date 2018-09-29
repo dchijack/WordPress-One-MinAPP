@@ -17,7 +17,7 @@ var CATEGORIESID='all'  //专题页显示全部的分类
 var PAYTEMPPLATEID = 'hzKpxuPF2rw7O-qTElkeoE0lMwr0O4t9PJkLyt6v8rk';//赞赏消息模版id
 var REPLAYTEMPPLATEID = 'IiAVoBWP34u1uwt801rI_Crgen7Xl2lvAGP67ofJLo8';//回复评论消息模版id
 var LOGO = "../../assets/logo.png"; // 网站的logo图片
-var POSTERIMGURL ="../../assets/default.png"; //生成海报如果没有首图，使用此处设置的图片作为海报图片。
+var POSTERIMGURL ="https://demo.imahui.com/wp-content/uploads/2018/08/1535254954-1.jpg"; //生成海报如果没有首图，使用此处设置的图片作为海报图片。
 var QRCODEURL = "https://demo.imahui.com/wp-content/uploads/qrcode/" //二维码网址目录
 
 //此处设置的域名和小程序与小程序后台设置的downloadFile合法域名要一致。
@@ -28,7 +28,7 @@ var DOWNLOADFILEDOMAIN = [
 
 export default {
   getDomain: DOMAIN,
-  getWebsiteName: WEBSITENAME,
+  getAppSite: WEBSITENAME,
   getAboutId: ABOUTID,
   getPayTemplateId: PAYTEMPPLATEID,
   getPageCount: PAGECOUNT,
