@@ -156,7 +156,7 @@ Page({
     };
     var getPostsRequest = wxRequest.getRequest(Api.getPosts(data));
     getPostsRequest.then(response => {
-      //console.log(response);
+      console.log(response);
       if (response.statusCode === 200) {
         //console.log(response.data.length);
         if (response.data[0].thumbnail) {
