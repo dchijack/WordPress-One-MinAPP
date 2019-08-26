@@ -24,12 +24,6 @@
 	 3) 必须有添加信任 Downloads 域名; 
 	 4) 图片链接必须是 HTTPS ;
 
-## 小程序体验
-
-![V微语录](https://github.com/dchijack/WP-REST-API/raw/master/vyulu.jpg)
-
-> 注意，此小程序的功能与体验版功能不完全一致。
-
 ## 微信公众号
 
 > 欢迎关注个人微信公众号，扫描下方二维码。后期关于插件，小程序等信息，将第一时间发布在公众号或个人博客：https://www.imahui.com
