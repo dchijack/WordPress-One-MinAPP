@@ -1,244 +1,350 @@
-/*
- * 
- * WordPres 连接微信小程序
- * Author: 守望轩 + 小鱼(vPush) + 艾码汇
- * github:  https://github.com/dchijack/WordPress-One-MinAPP
- * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
- * 
+/**
+ * Author : 丸子团队（波波、Chi、ONLINE.信）
+ * Github 地址: https://github.com/dchijack/Travel-Mini-Program
+ * GiTee 地址： https://gitee.com/izol/Travel-Mini-Program
  */
 
-import config from 'config.js'
-var domain = config.getDomain;
-var pageCount = config.getPageCount;
-var categoriesID = config.getCategoriesID;
-var qrcodePath = config.getQrcodeUrl;
-var HOST_URI = 'https://' + domain+'/wp-json/wp/v2/';
-var HOST_WECHAT = 'https://' + domain + '/wp-json/wechat/v1/';
-module.exports = {  
-  // 获取文章列表数据
-	getPosts: function (obj) {
-		var url = HOST_URI + 'posts?per_page=20&orderby=date&order=desc&page=' + obj.page;
-		if (obj.categories != 0) {
-			url += '&categories=' + obj.categories;
-		} else if (obj.search != '') {
-			url += '&search=' + encodeURIComponent(obj.search);
-		}  else if (obj.categories != 0 && obj.search != '') {
-			url += '&categories=' + obj.categories + '&search=' + encodeURIComponent(obj.search);
-		}   
-		return url;
-	},
-	// 获取置顶的文章
-	getStickyPosts: function () {
-		var url = HOST_URI + 'posts?sticky=true&per_page=5&page=1';
-		return url;
-	},
-	// 获取tag相关的文章列表
-	getPostsByTags: function (id,tags) {
-		var url = HOST_URI + 'posts?per_page=5&&page=1&exclude=' + id + "&tags=" + tags;
-		return url;
-	},
-	// 获取特定id的文章列表
-	getPostsByIDs: function (obj) {
-		var url = HOST_URI + 'posts?include=' + obj;
-		return url;
-	},
-	// 获取特定slug的文章内容
-	getPostBySlug: function (obj) {
-		var url = HOST_URI + 'posts?slug=' + obj;
-		return url;
-	},
-	// 获取文章内容页
-	getPostByID: function (id) {
-		return HOST_URI + 'posts/' + id;
-	},
-	// 获取页面列表
-	getPages: function () {
-		return HOST_URI + 'pages';
-	},
-	// 获取页面内容
-	getPageByID: function (id, obj) {
-		return HOST_URI + 'pages/' + id;
-	},
-	//获取分类列表
-	getCategories: function () {
-		var url ='';
-		if (categoriesID =='all'){
-			url = HOST_URI + 'categories?orderby=id&order=asc';
-		} else {
-			url = HOST_URI + 'categories?include=' + categoriesID+'&orderby=id&order=asc';
-		}
-		return url
-	},
-	// 获取多个分类文章列表数据
-	getPostsByCategories: function (categories) {
-		var url = HOST_URI + 'posts?per_page=20&orderby=date&order=desc&page=1&categories=' + categories;
-		return url;
-	},
-	//获取某个分类信息
-	getCategoryByID: function (id) {
-		var url = HOST_URI + 'categories/' + id;
-		return url;
-	},
-	//获取最新20条评论
-	getRecentComments: function () {
-		return HOST_URI + 'comments?parent=0&per_page=20&orderby=date&order=desc';
-	},
-	//获取回复
-	getReplyComments: function (obj) {
-		var url= HOST_URI + 'comments?parent_exclude=0&per_page=20&orderby=date&order=desc&post=' + obj.postID
-		return url;
-	},
-	//获取最近20条回复
-	getRecentReplyComments:function(){
-		return HOST_URI + 'comments?per_page=20&orderby=date&order=desc'
-	},
-	//提交评论
-	addComment: function () {
-		return HOST_URI + 'comments'
-	}, 
-	//获取某文章评论
-	getComments: function (obj) {
-		var url = HOST_URI + 'comments?per_page=20&orderby=date&order=asc&post=' + obj.postID + '&page=' + obj.page;
-		return url;
-	},
-	/**自定义**/
-	//获取首页滑动文章
-	getSwiperPosts: function () {
-		var url = HOST_WECHAT;
-		url += 'views/swipe';
-		return url;
-	},
-	//获取随机推荐文章
-	getRandomPosts: function () {
-		var url = HOST_WECHAT;
-		url += 'views/random';
-		return url;
-	},
-	//获取是否开启评论
-	getEnableComment: function () {
-		var url = HOST_WECHAT;
-		url += 'comment/setting';
-		return url;
-	},
-	//获取文章评论及回复
-	getCommentsReplay: function (obj) {
-		var url = HOST_WECHAT;
-		url += 'comment/comments?postid=' + obj.postId + '&limit=' + obj.limit + '&page=' + obj.page + '&order=desc';
-		return url;
-	},
-	//获取近期评论文章
-	getRecentCommentPost: function (openid) {
-		var url = HOST_WECHAT;
-		return url + 'comment/recent';
-	},
-	//微信提交评论
-	wechatAddComment: function () {
-		var url = HOST_WECHAT;
-		return url + 'comment/add'
-	}, 
-	//获取微信评论
-	getWechatComment: function (openid) {
-		var url = HOST_WECHAT;
-		return url + 'comment/get?openid=' + openid;
-	},
-	//获取榜单 API
-	getRankingPosts(flag){      
-		var url = HOST_WECHAT;
-		if(flag == 1) {
-			// 热门阅读
-			url +="views/most"
-		} else if(flag== 2) {
-			// 大家喜欢
-			url += "thumbs/most"
-		} else if (flag == 3) {
-			// 热门评论
-			url += "comment/most"
-		} else if (flag == 4) {
-			// 近期评论
-			url += "comment/recent"
-		}
-		return url;
-	},
-	//更新浏览数
-	updateViews(id) {
-		var url = HOST_WECHAT;
-		url += "views/update/"+id;
-		return url;
-	},
-	//获取用户openid
-	getOpenidUrl(id) {
-		var url = HOST_WECHAT;
-		url += "user/openid";
-		return url;
-	},
-	//点赞
-	updateThumbsUrl() {
-		var url = HOST_WECHAT;
-		url += "thumbs/up";
-		return url;
-	},
-	//判断当前用户是否点赞
-	getThumbedUrl() {
-		var url = HOST_WECHAT;
-		url += "thumbs/get";
-		return url;
-	},
-	//获取我的点赞
-	getMythumbsUrl(openid) {
-		var url = HOST_WECHAT;
-		url += "thumbs/user?openid=" + openid;
-		return url;
-	},
-	//发送模版消息
-	sendMessagesUrl() {
-		var url = HOST_WECHAT;
-		url += "message/send";
-		return url;
-	},
-	//海报二维码生成
-	creatPoster() {
-		var url = HOST_WECHAT;
-		url += "qrcode/creat";
-		return url;
-	},
-	//获取二维码
-	getQrcodeUrl() {
-    var url = qrcodePath;
-		return url;
-	},
-	//订阅分类 API
-	subscribeUrl() {
-		var url = HOST_WECHAT;
-		url += "category/sub";
-		return url;
-	},
-	//订阅分类文章
-	getSubscribeUrl(openid) {
-		var url = HOST_WECHAT;
-		url += "category/get?openid=" + openid;
-		return url;
-	},
-	//获取支付密钥
-	praiseKeyUrl() {   
-		var url = 'https://' + domain  + "/wp-wxpay/pay/app.php";
-		return url;
-	},
-	//赞赏文章 API
-	updatePraiseUrl() {
-		var url = HOST_WECHAT;
-		url += "praise/post";
-		return url;
-	},
-	//获取我的赞赏
-	getMyPraiseUrl(openid) {
-		var url = HOST_WECHAT;
-		url += "praise/user?openid=" + openid;
-		return url;
-	},
-	//获取所有赞赏
-	getAllPraiseUrl() {
-		var url = HOST_WECHAT;
-		url += "praise/all";
-		return url;
-	}
-};
+const API = require('./base')
+
+/**
+ * 获取站点信息
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getSiteInfo = function(data) {
+	return API.get('/wp-json/mp/v1/setting', data);
+}
+
+/**
+ * 获取置顶文章
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getStickyPosts = function(data) {
+	return API.get('/wp-json/mp/v1/posts/sticky', data);
+}
+
+/**
+ * 获取文章列表
+ * @param  {object} args 参数,默认为空
+ * 参数可以访问: http://v2.wp-api.org/ 了解相关参数
+ * @return {promise}
+ */
+const getPostsList = function(data) {
+	return API.get('/wp-json/wp/v2/posts', data, { token:true });
+}
+
+/**
+ * 获取文章详情
+ * @param  {int} id 文章id
+ * @return {promise}
+ */
+const getPostsbyID = function(id){
+	return API.get('/wp-json/wp/v2/posts/'+id, {}, { token:true });   
+}
+
+/**
+ * 获取页面列表
+ * @param  {object} args 参数,默认为空
+ * 参数可以访问: http://v2.wp-api.org/ 了解相关参数
+ * @return {promise}
+ */
+const getPagesList = function(data){
+	return API.get('/wp-json/wp/v2/pages', data);   
+}
+
+/**
+ * 获取页面详情
+ * @param  {int} id 页面id
+ * @return {promise}
+ */
+const getPageByID = function(id){
+	return API.get('/wp-json/wp/v2/pages/'+id);   
+}
+
+/**
+ * 获取所有分类列表
+ * @param  {object} args 参数
+ * 参数可以访问: http://v2.wp-api.org/ 了解相关参数
+ * @return {promise}
+ */
+const getCategories = function(data){
+	return API.get('/wp-json/wp/v2/categories?orderby=id&order=asc', data);
+}
+
+/**
+ * 获取指定分类
+ * @param {int} id 分类ID
+ * @return {promise}
+ */
+const getCategoryByID = function(id){
+	return API.get('/wp-json/wp/v2/categories/'+id);   
+}
+
+/**
+ * 获取所有标签列表
+ * @param  {object} args 参数
+ * 参数可以访问: http://v2.wp-api.org/ 了解相关参数
+ * @return {promise}
+ */
+const getTags = function(data){
+	return API.get('/wp-json/wp/v2/tags?orderby=id&order=asc', data);   
+}
+
+/**
+ * 获取指定标签
+ * @param  {int} id 标签ID
+ * @return {promise}
+ */
+const getTagByID = function(id){
+	return API.get('/wp-json/wp/v2/tags/'+id);   
+}
+
+/**
+ * 获取随机文章列表
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getRandPosts = function(data){
+	return API.get('/wp-json/mp/v1/posts/rand', data);   
+}
+
+/**
+ * 获取相关文章列表
+ * @param  {object} data 参数
+ * @return {promise}
+ */
+const getRelatePosts = function(data){
+	return API.get('/wp-json/mp/v1/posts/relate', data);   
+}
+
+/**
+ * 获取热门文章列表
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getMostViewsPosts = function(data){
+	return API.get('/wp-json/mp/v1/posts/most?meta=views', data);   
+}
+
+/**
+ * 获取热门收藏文章列表
+ * @param  {object} args 参数
+ * @return {promise}
+ */
+const getMostFavPosts = function(data){
+	return API.get('/wp-json/mp/v2/posts/most?meta=favs', data);   
+}
+
+/**
+ * 获取热门点赞文章列表
+ * @param  {object} args 参数
+ * @return {promise}
+ */
+const getMostLikePosts = function(data){
+	return API.get('/wp-json/mp/v2/posts/most?meta=likes', data);   
+}
+
+/**
+ * 获取热评文章列表
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getMostCommentPosts = function(data){
+	return API.get('/wp-json/mp/v2/posts/most?meta=comments', data);   
+}
+
+/**
+ * 获取近期评论文章
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getRecentCommentPosts = function(data){
+	return API.get('/wp-json/mp/v1/posts/comment', data);   
+}
+
+/**
+ * 文章评论列表
+ * @param  {object} args 参数,默认为空
+ * @return {promise}
+ */
+const getComments = function(data) {
+	return API.get('/wp-json/mp/v1/comments', data);
+}
+
+/**
+ * 获取用户信息
+ * @param  {object} args 参数
+ * @return {promise}
+ */
+const getProfile = function() {
+	return API.getUserInfo();
+}
+
+/**
+ * 注销用户登录
+ * @param  {object} args 参数
+ * @return {promise}
+ */
+const Loginout = function() {
+	return API.logout();
+}
+
+/**
+ * 收藏文章
+ * @param  {object} args 参数,POST 文章id
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const fav = function(data) {
+	return API.post('/wp-json/mp/v1/comments?type=fav', data, { token: true });
+}
+
+/**
+ * 点赞文章
+ * @param  {object} args 参数,POST 文章id
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const like = function(data) {
+	return API.post('/wp-json/mp/v1/comments?type=like', data, { token: true });
+}
+
+/**
+ * 我的收藏文章列表
+ * @param  {object} args 参数
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const getFavPosts = function(data) {
+	return API.get('/wp-json/mp/v1/posts/comment?type=fav', data, { token: true });
+}
+
+/**
+ * 我的点赞文章列表
+ * @param  {object} args 参数
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const getLikePosts = function(data) {
+	return API.get('/wp-json/mp/v1/posts/comment?type=like', data, { token: true });
+}
+
+/**
+ * 我的评论文章列表
+ * @param  {object} args 参数
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const getCommentsPosts = function(data) {
+	return API.get('/wp-json/mp/v1/posts/comment?type=comment', data, { token: true });
+}
+
+/**
+ * 发表评论
+ * @param  {object} args 参数, POST 评论内容及文章id
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const addComment = function(data) {
+	return API.post('/wp-json/mp/v1/comments?type=comment', data, { token: true });
+}
+
+/**
+ * 投票表态
+ * @param  {object} args 参数, POST 文章 ID 及选项 ID
+ * TOKEN 参数为 true ,需要用户授权使用
+ * @return {promise}
+ */
+const votePosts = function(data) {
+	return API.post('/wp-json/mp/v1/vote', data, { token: true });
+}
+
+/**
+ * 微信小程序订阅消息
+ * @param {*} data 
+ */
+const subscribeMessage = function(data) {
+  return API.post('/wp-json/mp/v1/subscribe', data, { token: true });
+}
+
+/**
+ * 获取二维码
+ * @param  {object} args 参数
+ * @return {promise}
+ */
+const getCodeImg = function(data) {
+	return API.post('/wp-json/mp/v1/qrcode', data, { token: false });
+}
+
+/**
+ * 导航数据
+ */
+const getMenuSetting = function(data) {
+	return API.get('/wp-json/mp/v1/menu', data);
+}
+
+/**
+ * 首页广告数据
+ */
+const indexAdsense = function(data) {
+	return API.get('/wp-json/mp/v1/advert/wechat?type=index', data);
+}
+
+/**
+ * 列表广告数据
+ */
+const listAdsense = function(data) {
+	return API.get('/wp-json/mp/v1/advert/wechat?type=list', data);
+}
+
+/**
+ * 详情广告数据
+ */
+const detailAdsense = function(data) {
+	return API.get('/wp-json/mp/v1/advert/wechat?type=detail', data);
+}
+
+/**
+ * 页面广告数据
+ */
+const pageAdsense = function(data) {
+	return API.get('/wp-json/mp/v1/advert/wechat?type=page', data);
+}
+
+API.getSiteInfo					    = getSiteInfo
+API.getStickyPosts			    = getStickyPosts
+API.getPostsList				    = getPostsList
+API.getPostsbyID				    = getPostsbyID
+API.getPagesList				    = getPagesList
+API.getPageByID					    = getPageByID
+API.getCategories				    = getCategories
+API.getCategoryByID			    = getCategoryByID
+API.getTags						      = getTags
+API.getTagByID					    = getTagByID
+API.getRandPosts				    = getRandPosts
+API.getRelatePosts				  = getRelatePosts
+API.getMostViewsPosts		  	= getMostViewsPosts
+API.getMostFavPosts				  = getMostFavPosts
+API.getMostLikePosts			  = getMostLikePosts
+API.getMostCommentPosts			= getMostCommentPosts
+API.getRecentCommentPosts		= getRecentCommentPosts
+API.getComments					    = getComments
+API.getProfile					    = API.guard(getProfile)
+API.fav							        = API.guard(fav)
+API.getFavPosts					    = API.guard(getFavPosts)
+API.like						        = API.guard(like)
+API.getLikePosts				    = API.guard(getLikePosts)
+API.getCommentsPosts			  = API.guard(getCommentsPosts)
+API.addComment					    = API.guard(addComment)
+API.votePosts					      = API.guard(votePosts)
+API.subscribeMessage        = API.guard(subscribeMessage)
+API.getCodeImg					    = getCodeImg
+API.Loginout					      = Loginout
+API.getMenuSetting				  = getMenuSetting
+API.indexAdsense				    = indexAdsense
+API.listAdsense					    = listAdsense
+API.detailAdsense				    = detailAdsense
+API.pageAdsense					    = pageAdsense
+
+module.exports = API

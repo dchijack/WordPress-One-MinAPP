@@ -1,1 +1,1 @@
-修改 util 目录中的 config.js 相关配置
+修改 util 目录中的 base.js 域名配置即可

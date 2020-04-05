@@ -1,0 +1,9 @@
+var formatTime = function (date) {
+    var dateTime = date.split(" ")
+    var dateArr = dateTime[0].split("-")
+    return dateArr
+}
+
+module.exports = {
+    formatTime: formatTime,
+}

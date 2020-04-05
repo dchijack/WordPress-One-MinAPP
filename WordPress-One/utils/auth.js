@@ -1,63 +1,91 @@
-/*
- * 
- * WordPres 连接微信小程序
- * Author: 守望轩 + 小鱼(vPush) + 艾码汇
- * github:  https://github.com/dchijack/WordPress-One-MinAPP
- * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
- * 
+/**
+ * Author : 丸子团队（波波、Chi、ONLINE.信）
+ * Github 地址: https://github.com/dchijack/Travel-Mini-Program
+ * GiTee 地址： https://gitee.com/izol/Travel-Mini-Program
  */
-var Api = require('api.js');
-var util = require('util.js');
-var wxApi = require('wxApi.js')
-var wxRequest = require('wxRequest.js')
-var app = getApp();
-module.exports = {
-    // 获取用户信息
-    getUsreInfo: function (userInfoDetail) {       
-        var wxLogin = wxApi.wxLogin();
-        var jscode = '';
-        wxLogin().then(response => {
-            jscode = response.code
-            if (userInfoDetail ==null) {
-                var userInfo = wxApi.wxGetUserInfo();
-                return userInfo();
-            } else {                
-                return userInfoDetail;
-            } 
-        })
-        //获取用户信息
-        .then(response => {
-            console.log(response.userInfo);
-            console.log("成功获取用户信息(公开信息)");
-            app.globalData.userInfo = response.userInfo;
-            app.globalData.isGetUserInfo = true;
-            var data = {
-                js_code: jscode,
-                encryptedData: response.encryptedData,
-                iv: response.iv,
-                avatarUrl: response.userInfo.avatarUrl,
-                nickname: response.userInfo.nickName
-            }
-            this.getOpenId(data);                              
-        })
-		.catch(function (error) {
-            console.log('error: ' + error.errMsg);
-        })
-    },
-	// 获取用户 OpenID
-    getOpenId(data) {
-        var url = Api.getOpenidUrl();        
-        var postOpenidRequest = wxRequest.postRequest(url, data);
-        //获取openid
-        postOpenidRequest.then(response => {
-            if (response.data.status == '200') {
-                //console.log(response.data.openid)
-                console.log("openid 获取成功");
-                app.globalData.openid = response.data.openid;
-                app.globalData.isGetOpenid = true;
-            } else {
-                console.log(response);
-            }
-        }) 
+
+const Auth = {}
+
+/**
+ * 获取当前登陆用户信息
+ * @return {object}
+ */
+Auth.user = function() {
+    return wx.getStorageSync('user');
+}
+
+/**
+ * 获取token
+ * @return {string}
+ */
+Auth.token = function() {
+    return wx.getStorageSync('token');
+}
+
+/**
+ * 判断是否有效期
+ * @return {boolean}
+ */
+Auth.check = function() {
+    let user = Auth.user()
+    let token = Auth.token()
+    if (user && Date.now() < wx.getStorageSync('expired_in') && token) {
+        console.log('access_token过期时间：', (wx.getStorageSync('expired_in') - Date.now()) / 1000, '秒');
+        return true;
+    } else {
+        return false;
     }
 }
+
+/**
+ * 登录
+ * @return {Promise} 登录信息
+ */
+Auth.login = function() {
+    return new Promise(function(resolve, reject) {
+        wx.login({
+            success: function(res) {
+                resolve(res);
+            },
+            fail: function(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
+/**
+ * 注销
+ * @return {boolean}
+ */
+Auth.logout = function() {
+    wx.removeStorageSync('user')
+    wx.removeStorageSync('token')
+    wx.removeStorageSync('expired_in')
+    return true
+}
+
+/**
+ * 获取授权登录加密数据
+ */
+Auth.getUserInfo = function(){
+    return new Promise(function(resolve, reject) {
+		Auth.login().then(data => {
+			let args = {}
+			args.code = data.code;
+			wx.getUserInfo({
+				success: function (res) {
+					//console.log(res);
+					args.iv = encodeURIComponent(res.iv);
+					args.encryptedData = encodeURIComponent(res.encryptedData);
+					resolve(args);
+				},
+				fail: function (err) {
+					reject(err);
+				}
+			});
+		})
+    });
+}
+
+module.exports = Auth

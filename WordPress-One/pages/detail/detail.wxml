@@ -1,14 +1,11 @@
 <!--
-/*
- * 
- * WordPres 连接微信小程序
- * Author: 守望轩 + 小鱼(vPush) + 艾码汇
- * github:  https://github.com/dchijack/WordPress-One-MinAPP
- * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
- * 
+/**
+ * Author : 丸子团队（波波、Chi、ONLINE.信）
+ * Github 地址: https://github.com/dchijack/WordPress-One-MinAPP
  */
 -->
 <import src="../../wxParse/wxParse.wxml" />
+<wxs module="date" src="../../utils/date.wxs"></wxs>
 <view class='topBar' style='padding-top:{{statusBarHeight}}px;background-color:rgba(3, 169, 244, {{opacity}});'>
   <!--左边按钮  -->
   <view class='loginButton' hover-class='hover-class' bindtap='goHomeHandler' wx:if="{{isShare}}">
@@ -19,25 +16,24 @@
   </view>
   <!--中间标题  -->
   <view class='SiteApp'>
-    <text>{{title}}</text>
+    <text>{{detail.title.rendered}}</text>
   </view>
   <!--右边间隙  -->
 </view>
 <scroll-view scroll-y bindscroll="scrollHandler" scroll-with-animation scroll-top="{{scrollTop}}" class="container">
   <!--顶部图片  -->
-  <image wx:if='{{detail.thumbnail}}' src='{{detail.thumbnail?detail.thumbnail:"/assets/default.png"}}' class='header-image'></image>
-  <image wx:else src='{{detail.meta.thumbnail?detail.meta.thumbnail:"/assets/default.png"}}' class='header-image'></image>
+  <image src='{{detail.meta.thumbnail?detail.meta.thumbnail:"/assets/default.png"}}' class='header-image'></image>
   <view class="main">
     <!--主体  -->
     <view class='body'>
       <!-- 分类/名称 -->
       <view class='category'>
-        <text>{{detail.category?"分类 / " + detail.category:""}}</text>
+        <text>{{detail.category.length > 0 ? "分类 / " + detail.category[0].name : ""}}</text>
       </view>
       <!-- 时间 -->
       <view class='date'>
-        <text class='day'>{{detailDate[2]}}</text>
-        <text class='other'>{{detailDate[0]}}/{{detailDate[1]}}</text>
+        <text class='day'>{{date.formatTime(detail.date)[2]}}</text>
+        <text class='other'>{{date.formatTime(detail.date)[0] + '/' + date.formatTime(detail.date)[1]}}</text>
       </view>
       <!--主体内容  -->
       <view class='content'>
@@ -45,18 +41,19 @@
       </view>
       <!--文字作者信息  -->
       <view class='author'>
-        <text>———— {{detail.author}}</text>
+        <text>———— {{detail.author.name}}</text>
       </view>
       <!--按钮  -->
       <view class='action'>
         <view class='action-cell'>
-          <view class='action-cell-button' bindtap="isThumbsClick">
+          <view class='action-cell-button relative'>
             <view class='cell-icon'>
-              <image src='/assets/{{isZanIcon}}'></image>
+              <image src="{{detail.islike ? '/assets/heart-o.png' : '/assets/heart.png'}}"></image>
             </view>
             <view class='cell-title'>
               <text>喜欢</text>
             </view>
+            <button class="absolute" hover-class="hover-class" id="{{detail.id}}" open-type="getUserInfo" bindgetuserinfo="bindLike"></button>
           </view>
         </view>
         <!--转发  -->
@@ -93,19 +90,3 @@
 <view class="canvas">
   <canvas canvas-id="prefix" style="width: 600px;height: 970px;"></canvas>
 </view>
-<block wx:if="{{userInfo == null || userInfo == ''}}">
-<view class="modal-login" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{loginModal}}"></view>
-<view class="modal-dialog" wx:if="{{loginModal}}">
-  <view class="modal-title">授权提示</view>
-  <view class="modal-content">
-    <text>如需查看个人浏览记录、评论、点赞等功能需授权获取用户信息。</text>    
-  </view>
-  <view class="modal-footer">
-    <view class="modal-cancel" bindtap="onCancel" data-status="cancel">取消</view>
-    <view class="modal-confirm">
-      <text>点击授权</text>
-      <button class="modal-button" open-type="getUserInfo" bindgetuserinfo="bindGetUserinfo"></button>
-    </view>
-</view>
-</view>
-</block>

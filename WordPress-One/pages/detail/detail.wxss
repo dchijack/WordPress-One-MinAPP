@@ -1,10 +1,6 @@
-/*
- * 
- * WordPres 连接微信小程序
- * Author: 守望轩 + 小鱼(vPush) + 艾码汇
- * github:  https://github.com/dchijack/WordPress-One-MinAPP
- * 技术支持：https://www.imahui.com  微信公众号：WordPress(搜索微信号：WPGeek)
- * 
+/**
+ * Author : 丸子团队（波波、Chi、ONLINE.信）
+ * Github 地址: https://github.com/dchijack/WordPress-One-MinAPP
  */
 page {
   background: linear-gradient(135deg, #FFFFFF 0%, #EEEEEE 100%);
@@ -126,4 +122,15 @@ page {
   left: 0;
   top: 9999rpx;
   position: fixed;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  opacity: 0;
+  position: absolute;
 }
