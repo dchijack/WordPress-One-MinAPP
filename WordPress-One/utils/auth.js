@@ -6,26 +6,14 @@
 
 const Auth = {}
 
-/**
- * 获取当前登陆用户信息
- * @return {object}
- */
 Auth.user = function() {
     return wx.getStorageSync('user');
 }
 
-/**
- * 获取token
- * @return {string}
- */
 Auth.token = function() {
     return wx.getStorageSync('token');
 }
 
-/**
- * 判断是否有效期
- * @return {boolean}
- */
 Auth.check = function() {
     let user = Auth.user()
     let token = Auth.token()
@@ -37,10 +25,6 @@ Auth.check = function() {
     }
 }
 
-/**
- * 登录
- * @return {Promise} 登录信息
- */
 Auth.login = function() {
     return new Promise(function(resolve, reject) {
         wx.login({
@@ -54,10 +38,6 @@ Auth.login = function() {
     });
 }
 
-/**
- * 注销
- * @return {boolean}
- */
 Auth.logout = function() {
     wx.removeStorageSync('user')
     wx.removeStorageSync('token')
@@ -65,15 +45,13 @@ Auth.logout = function() {
     return true
 }
 
-/**
- * 获取授权登录加密数据
- */
 Auth.getUserInfo = function(){
     return new Promise(function(resolve, reject) {
 		Auth.login().then(data => {
 			let args = {}
 			args.code = data.code;
 			wx.getUserInfo({
+                withCredentials: true,
 				success: function (res) {
 					//console.log(res);
 					args.iv = encodeURIComponent(res.iv);

@@ -154,11 +154,6 @@ API.storageUser = function(res) {
 	}
 }
 
- /**
- * 需要授权的接口调用
- * @param	{Function} fn
- * @return {Promise}
- */
 API.guard = function(fn) {
 	const self = this
 	return function() {
