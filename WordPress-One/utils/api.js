@@ -48,7 +48,7 @@ const getCategoryByID = function(id){
 
 // 标签列表
 const getTags = function(data){
-	return API.get('/wp-json/wp/v2/tags?orderby=id&order=asc', data);   
+	return API.get('/wp-json/wp/v2/tags?orderby=count&order=asc', data);   
 }
 
 // 标签信息
@@ -94,11 +94,6 @@ const getRecentCommentPosts = function(data){
 // 文章评论
 const getComments = function(data) {
 	return API.get('/wp-json/mp/v1/comments', data);
-}
-
-// 授权登录
-const getProfile = function() {
-	return API.getUserInfo();
 }
 
 // 注销登录
@@ -172,34 +167,33 @@ const pageAdsense = function(data) {
 }
 
 API.getSiteInfo					    = getSiteInfo
-API.getStickyPosts			    	= getStickyPosts
+API.getStickyPosts			    = getStickyPosts
 API.getPostsList				    = getPostsList
 API.getPostsbyID				    = getPostsbyID
 API.getPagesList				    = getPagesList
 API.getPageByID					    = getPageByID
 API.getCategories				    = getCategories
-API.getCategoryByID			    	= getCategoryByID
-API.getTags						    = getTags
+API.getCategoryByID			    = getCategoryByID
+API.getTags						      = getTags
 API.getTagByID					    = getTagByID
 API.getRandPosts				    = getRandPosts
-API.getRelatePosts				  	= getRelatePosts
-API.getMostViewsPosts		  		= getMostViewsPosts
-API.getMostFavPosts				  	= getMostFavPosts
-API.getMostLikePosts			  	= getMostLikePosts
-API.getMostCommentPosts				= getMostCommentPosts
-API.getRecentCommentPosts			= getRecentCommentPosts
+API.getRelatePosts				  = getRelatePosts
+API.getMostViewsPosts		  	= getMostViewsPosts
+API.getMostFavPosts				  = getMostFavPosts
+API.getMostLikePosts			  = getMostLikePosts
+API.getMostCommentPosts			= getMostCommentPosts
+API.getRecentCommentPosts		= getRecentCommentPosts
 API.getComments					    = getComments
-API.getProfile					    = API.guard(getProfile)
-API.fav							    = API.guard(fav)
+API.fav							        = API.guard(fav)
 API.getFavPosts					    = API.guard(getFavPosts)
-API.like						    = API.guard(like)
+API.like						        = API.guard(like)
 API.getLikePosts				    = API.guard(getLikePosts)
-API.getCommentsPosts			  	= API.guard(getCommentsPosts)
+API.getCommentsPosts			  = API.guard(getCommentsPosts)
 API.addComment					    = API.guard(addComment)
-API.subscribeMessage        		= API.guard(subscribeMessage)
+API.subscribeMessage        = API.guard(subscribeMessage)
 API.getCodeImg					    = getCodeImg
-API.Loginout					    = Loginout
-API.getMenuSetting				  	= getMenuSetting
+API.Loginout					      = Loginout
+API.getMenuSetting				  = getMenuSetting
 API.indexAdsense				    = indexAdsense
 API.listAdsense					    = listAdsense
 API.detailAdsense				    = detailAdsense

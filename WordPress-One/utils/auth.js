@@ -45,23 +45,40 @@ Auth.logout = function() {
     return true
 }
 
+Auth.getUserProfile = function( ) {
+    return new Promise(function(resolve, reject) {
+        wx.getUserProfile({
+            desc: "用于完善会员基本信息",
+            success: function(res){
+                let args = {}
+                args.iv = encodeURIComponent(res.iv);
+                args.encryptedData = encodeURIComponent(res.encryptedData);
+                resolve(args);
+            },
+            fail: function(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
 Auth.getUserInfo = function(){
     return new Promise(function(resolve, reject) {
-		Auth.login().then(data => {
-			let args = {}
-			args.code = data.code;
-			wx.getUserInfo({
-                withCredentials: true,
-				success: function (res) {
-					//console.log(res);
-					args.iv = encodeURIComponent(res.iv);
-					args.encryptedData = encodeURIComponent(res.encryptedData);
-					resolve(args);
-				},
-				fail: function (err) {
-					reject(err);
-				}
-			});
+		Auth.getUserProfile().then(res => {
+            let args = {}
+            args.iv = res.iv;
+			args.encryptedData = res.encryptedData;
+            Auth.login().then(res => {
+                args.code = res.code
+                resolve(args);
+            })
+            .catch(err => {
+                reject(err);
+            })
+        })
+        .catch(err => {
+            console.log(err)
+			wx.hideLoading()
 		})
     });
 }

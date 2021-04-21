@@ -20,6 +20,7 @@ Page({
     scrollTop: 0,
     prefix: '',
     isShare: false,
+    user: app.globalData.user,
     statusBarHeight: app.globalData.StatusBar
   },
 
@@ -46,13 +47,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let user = app.globalData.user
-    if (!user) {
-      user = '';
+    let user = API.getUser()
+    if (user) {
+      this.setData({
+        user: user,
+      })
     }
-    this.setData({
-      user: user,
-    })
   },
 
   /**
@@ -135,7 +135,23 @@ Page({
       console.log(err)
     })
   },
-  bindLike: function(e) {
+  getProfile: function () {
+    wx.showLoading({
+      title: '正在登录...',
+    })
+    API.getProfile().then(res => {
+      //console.log(res)
+      this.setData({
+        user: res
+      })
+      wx.hideLoading()
+    })
+    .catch(err => {
+      console.log(err)
+      wx.hideLoading()
+    })
+  },
+  bindLike: function() {
     let args = {}
     let detail = this.data.detail
     args.id = detail.id

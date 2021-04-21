@@ -53,7 +53,8 @@
             <view class='cell-title'>
               <text>喜欢</text>
             </view>
-            <button class="absolute" hover-class="hover-class" id="{{detail.id}}" open-type="getUserInfo" bindgetuserinfo="bindLike"></button>
+            <button wx:if="{{user}}" class="absolute" hover-class="hover-class" id="{{detail.id}}" bindtap="bindLike"></button>
+            <button wx:else class="absolute" hover-class="hover-class" bindtap="getProfile"></button>
           </view>
         </view>
         <!--转发  -->

@@ -11,7 +11,7 @@
   <view class='loginButton' hover-class='hover-class'>
     <image wx:if="{{user == null || user == ''}}" src='/assets/gavatar.png'></image>
     <image wx:else src='{{user.avatarUrl}}'></image>
-    <button class="login-button" open-type="getUserInfo" bindgetuserinfo="getProfile"></button>
+    <button class="login-button" bindtap="getProfile"></button>
   </view>
   <!--中间标题  -->
   <view class='SiteApp'>
